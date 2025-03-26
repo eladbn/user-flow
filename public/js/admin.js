@@ -767,4 +767,37 @@ document.addEventListener('DOMContentLoaded', function() {
       imagePreviewArea.appendChild(placeholder);
     }
   }
+
+  /**
+ * Collapsible Sidebar Functionality
+ * This adds toggle functionality to the sidebar
+ */
+  // Create toggle button
+  const toggleButton = document.createElement('button');
+  toggleButton.className = 'sidebar-toggle';
+  toggleButton.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+  toggleButton.setAttribute('aria-label', 'toggle sidebar');
+  toggleButton.setAttribute('type', 'button');
+  
+  // Get sidebar element
+  const sidebar = document.querySelector('.sidebar');
+  
+  // Add toggle button to sidebar
+  if (sidebar) {
+    sidebar.appendChild(toggleButton);
+    
+    // Check if sidebar state is saved in localStorage
+    const isSidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    if (isSidebarCollapsed) {
+      sidebar.classList.add('collapsed');
+    }
+    
+    // Add click event to toggle sidebar
+    toggleButton.addEventListener('click', function() {
+      sidebar.classList.toggle('collapsed');
+      
+      // Save state to localStorage
+      localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+    });
+  }
 });
