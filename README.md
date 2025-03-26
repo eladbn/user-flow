@@ -37,6 +37,8 @@ This web application is designed to create and display interactive, step-by-step
 │       ├── file-upload-handler.js  # Handles file uploads
 │       ├── sortable.min.js    # Sortable library for drag-and-drop
 │       └── viewer.js          # Process viewer functionality
+├── package.json
+└── server.js
 ```
 
 ## How to Use
@@ -127,7 +129,7 @@ The application can be easily customized by modifying the CSS files. The main cu
 
 MIT License
 
-Copyright (c) 2025
+Copyright (c) 2025 eladbn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
