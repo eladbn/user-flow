@@ -79,6 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove login overlay
         document.body.removeChild(loginOverlay);
         document.body.style.overflow = ''; // Restore scrolling
+        
+        // Load the logo after successful authentication
+        const logoElem = document.getElementById('header-logo');
+        const savedLogo = localStorage.getItem('appLogo');
+        if (savedLogo && logoElem) {
+          logoElem.src = savedLogo;
+        }
       } else {
         // Show error message
         errorMessage.style.display = 'block';
@@ -88,7 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Password protection
+  // Password protection - This line is important for resetting authentication
+  // KEEP THIS LINE but only run it when we're managing authentication
   localStorage.removeItem('adminAuthenticated');
   checkAuthentication();
   

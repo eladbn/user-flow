@@ -331,4 +331,69 @@ document.addEventListener('DOMContentLoaded', function() {
         renderStepContent(currentStep);
       }
     });
+
+      // Check if a flow ID was passed in URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const preSelectedFlowId = urlParams.get('flow');
+      
+      if (preSelectedFlowId) {
+        console.log('Pre-selected flow ID from URL:', preSelectedFlowId);
+        
+        // Find the flow select dropdown
+        const flowSelect = document.getElementById('flow-select');
+        if (flowSelect) {
+          // Wait for flows to load
+          const checkFlowsLoaded = setInterval(() => {
+            // Check if the select has options other than the default one
+            if (flowSelect.options.length > 1) {
+              clearInterval(checkFlowsLoaded);
+              
+              // Set the selected flow
+              for (let i = 0; i < flowSelect.options.length; i++) {
+                if (flowSelect.options[i].value === preSelectedFlowId) {
+                  flowSelect.selectedIndex = i;
+                  // Trigger the change event to load the flow
+                  const event = new Event('change');
+                  flowSelect.dispatchEvent(event);
+                  break;
+                }
+              }
+            }
+          }, 100);
+          
+          // Set a timeout to stop checking after 5 seconds
+          setTimeout(() => {
+            clearInterval(checkFlowsLoaded);
+            console.log('Timeout reached while waiting for flows to load');
+          }, 5000);
+        }
+      }
+      
+      // Add back navigation link to the presenter page
+      const appTitle = document.querySelector('.app-title');
+      if (appTitle) {
+        // Create back button
+        const backLink = document.createElement('a');
+        backLink.href = 'index.html';
+        backLink.className = 'back-link';
+        backLink.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5l7 7-7 7"></path>
+            <path d="M5 12H19"></path>
+          </svg>
+          <span>חזרה לדף הראשי</span>
+        `;
+        backLink.style.cssText = `
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          margin-bottom: 10px;
+          text-decoration: none;
+          color: var(--primary-color);
+          font-size: 14px;
+        `;
+        
+        // Insert before the app title
+        appTitle.parentNode.insertBefore(backLink, appTitle);
+      }
   });

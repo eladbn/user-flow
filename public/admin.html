@@ -182,21 +182,5 @@
   <script src="js/sortable.min.js"></script>
   <script src="js/admin.js"></script>
   <script src="js/file-upload-handler.js"></script>
-  
-  <!-- Custom script to load the logo without interfering with authentication -->
-  <script>
-    localStorage.removeItem('adminAuthenticated');
-    // This runs after all other scripts have loaded
-    window.addEventListener('load', function() {
-      // Only attempt to load logo if already authenticated
-      if (localStorage.getItem('adminAuthenticated')) {
-        const logoElem = document.getElementById('header-logo');
-        const savedLogo = localStorage.getItem('appLogo');
-        if (savedLogo && logoElem) {
-          logoElem.src = savedLogo;
-        }
-      }
-    });
-  </script>
 </body>
 </html>

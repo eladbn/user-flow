@@ -3,58 +3,475 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מציג תהליכים משתמש</title>
+  <title>מציג תהליכים אינטראקטיבי - דף ראשי</title>
   <link rel="stylesheet" href="css/modern-ui.css">
+  <style>
+    /* Additional styles for the landing page */
+    .landing-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 30px;
+      background-color: var(--bg-color);
+    }
+    
+    .landing-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    
+    .landing-logo {
+      width: 500px;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .landing-logo img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    
+    /* Default logo when no custom logo is present */
+    .landing-logo:empty::before {
+      content: "";
+      width: 80px;
+      height: 80px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      position: relative;
+    }
+    
+    .landing-logo:empty::after {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 50%;
+      transform: translate(10px, 0);
+    }
+    
+    .landing-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .landing-subtitle {
+      font-size: 16px;
+      color: var(--text-light);
+      text-align: center;
+      max-width: 600px;
+    }
+    
+    .flows-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    
+    .flow-card {
+      background-color: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 280px;
+    }
+    
+    .flow-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .flow-thumbnail {
+      height: 180px;
+      overflow: hidden;
+      background-color: var(--hover-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .flow-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .flow-info {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .flow-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 5px;
+    }
+    
+    .flow-description {
+      font-size: 14px;
+      color: var(--text-light);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    
+    .flow-meta {
+      margin-top: auto;
+      font-size: 13px;
+      color: var(--text-light);
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .flow-steps {
+      display: flex;
+      align-items: center;
+    }
+    
+    .flow-steps .step-icon {
+      margin-left: 5px;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+    }
+    
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    
+    .loading-spinner {
+      border: 3px solid var(--border-color);
+      border-radius: 50%;
+      border-top: 3px solid var(--primary-color);
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .error-container {
+      text-align: center;
+      padding: 40px;
+      background-color: #FEF2F2;
+      border-radius: var(--radius);
+      color: #B91C1C;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .admin-footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .landing-container {
+        padding: 20px;
+      }
+      
+      .landing-logo {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .landing-title {
+        font-size: 24px;
+      }
+      
+      .flows-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="app-container">
-    <!-- Right sidebar with controls -->
-    <div class="sidebar">
-      <div class="logo-container">
-        <div class="app-logo" id="app-logo">
-          <!-- Will contain logo image - either from admin menu or default -->
-        </div>
-        <h1 class="app-title">מציג תהליכים</h1>
+  <div class="landing-container">
+    <div class="landing-header">
+      <div class="landing-logo" id="landing-logo">
+        <!-- Will contain logo image - either from admin menu or default -->
       </div>
-      
-      <div class="flow-control">
-        <label for="flow-select">בחר תהליך:</label>
-        <select id="flow-select" class="flow-select">
-          <option value="">-- בחר תהליך --</option>
-        </select>
-      </div>
-      
-      <div class="view-toggle">
-        <button id="desktop-view" class="toggle-btn active">מחשב</button>
-        <button id="mobile-view" class="toggle-btn">מובייל</button>
-      </div>
-      
-      <div class="steps-list-container">
-        <h2 class="steps-title">צעדי התהליך</h2>
-        <div id="steps-list" class="steps-list">
-          <div class="placeholder-message">בחר תהליך להצגה</div>
-        </div>
-      </div>
-      
-      <div class="navigation">
-        <button id="prev-btn" class="nav-btn" disabled>הקודם</button>
-        <span id="step-indicator" class="step-indicator"></span>
-        <button id="next-btn" class="nav-btn" disabled>הבא</button>
-      </div>
-      
-      <div class="admin-link">
-        <a href="/admin.html" class="admin-btn">כניסה לפאנל ניהול</a>
+      <h1 class="landing-title">מציג תהליכים אינטראקטיבי</h1>
+      <p class="landing-subtitle">בחר תהליך מהרשימה וצפה בהדמיה אינטואיטיבית של שלב אחרי שלב</p>
+    </div>
+    
+    <div id="flows-container" class="flows-grid">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>טוען תהליכים...</p>
       </div>
     </div>
     
-    <!-- Main content area for image display -->
-    <div class="content-area">
-      <div id="content-display" class="content-display">
-        <div class="placeholder-message">בחר תהליך וצעד להצגה</div>
-      </div>
+    <div class="admin-footer">
+      <a href="/admin.html" class="admin-btn">כניסה לפאנל ניהול</a>
     </div>
   </div>
 
-  <script src="js/viewer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // DOM elements
+      const landingLogo = document.getElementById('landing-logo');
+      const flowsContainer = document.getElementById('flows-container');
+      
+      // Initialize
+      loadAppLogo();
+      loadFlowsList();
+      
+      // Functions
+      function loadAppLogo() {
+        // Try to fetch logo from settings or admin configuration
+        fetch('/api/settings/logo')
+          .then(response => {
+            if (!response.ok) {
+              // No logo set or endpoint doesn't exist, use default
+              return null;
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data && data.logoPath) {
+              const logoImg = document.createElement('img');
+              logoImg.src = data.logoPath;
+              logoImg.alt = 'לוגו האפליקציה';
+              landingLogo.innerHTML = '';
+              landingLogo.appendChild(logoImg);
+              console.log('Logo loaded successfully:', data.logoPath);
+            } else {
+              // Try to load the logo from localStorage as a fallback
+              const savedLogo = localStorage.getItem('appLogo');
+              if (savedLogo) {
+                const logoImg = document.createElement('img');
+                logoImg.src = savedLogo;
+                logoImg.alt = 'לוגו האפליקציה';
+                landingLogo.innerHTML = '';
+                landingLogo.appendChild(logoImg);
+                console.log('Logo loaded from localStorage');
+              }
+            }
+            // If no logo data, the default CSS logo will show
+          })
+          .catch(error => {
+            console.log('Using default logo, error:', error);
+            // Try to load from localStorage as a fallback
+            const savedLogo = localStorage.getItem('appLogo');
+            if (savedLogo) {
+              const logoImg = document.createElement('img');
+              logoImg.src = savedLogo;
+              logoImg.alt = 'לוגו האפליקציה';
+              landingLogo.innerHTML = '';
+              landingLogo.appendChild(logoImg);
+              console.log('Logo loaded from localStorage after API error');
+            }
+          });
+      }
+      
+      function loadFlowsList() {
+        console.log('Loading flows list...');
+        fetch('/api/flows')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(flows => {
+            console.log('Flows loaded:', flows);
+            
+            if (!flows || flows.length === 0) {
+              flowsContainer.innerHTML = '<p class="placeholder-message">אין תהליכים זמינים כרגע</p>';
+              return;
+            }
+            
+            // Clear loading state
+            flowsContainer.innerHTML = '';
+            
+            // Process each flow
+            const flowPromises = flows.map(flow => {
+              return fetch(`/api/flows/${flow.id}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  return response.json();
+                })
+                .then(flowDetail => {
+                  return createFlowCard(flowDetail);
+                })
+                .catch(error => {
+                  console.error(`Error loading flow ${flow.id}:`, error);
+                  return createErrorFlowCard(flow);
+                });
+            });
+            
+            // Wait for all flow cards to be created
+            Promise.all(flowPromises)
+              .then(flowCards => {
+                // Add all cards to the container
+                flowCards.forEach(card => {
+                  if (card) {
+                    flowsContainer.appendChild(card);
+                  }
+                });
+              });
+          })
+          .catch(error => {
+            console.error('Error loading flows:', error);
+            flowsContainer.innerHTML = '<div class="error-container"><h3>שגיאה בטעינת רשימת התהליכים</h3><p>נא לנסות שוב מאוחר יותר</p></div>';
+          });
+      }
+      
+      function createFlowCard(flow) {
+        // Create card container
+        const card = document.createElement('div');
+        card.className = 'flow-card';
+        card.addEventListener('click', () => {
+          // Navigate to presenter page with this flow pre-selected
+          window.location.href = `presentor.html?flow=${flow.id}`;
+        });
+        
+        // Create thumbnail section
+        const thumbnail = document.createElement('div');
+        thumbnail.className = 'flow-thumbnail';
+        
+        // Try to get first step's desktop image for thumbnail
+        let thumbnailSrc = '/images/flow-placeholder.jpg'; // Default placeholder
+        if (flow.steps && flow.steps.length > 0 && flow.steps[0].desktopImage) {
+          thumbnailSrc = flow.steps[0].desktopImage;
+        }
+        
+        const thumbnailImg = document.createElement('img');
+        thumbnailImg.src = thumbnailSrc;
+        thumbnailImg.alt = `תמונה מקדימה לתהליך ${flow.name}`;
+        thumbnailImg.onerror = function() {
+          // If image fails to load, show a placeholder
+          this.src = '/images/flow-placeholder.jpg';
+          this.alt = 'תמונת ברירת מחדל';
+        };
+        
+        thumbnail.appendChild(thumbnailImg);
+        card.appendChild(thumbnail);
+        
+        // Create info section
+        const info = document.createElement('div');
+        info.className = 'flow-info';
+        
+        const name = document.createElement('div');
+        name.className = 'flow-name';
+        name.textContent = flow.name || 'תהליך ללא שם';
+        info.appendChild(name);
+        
+        if (flow.description) {
+          const description = document.createElement('div');
+          description.className = 'flow-description';
+          description.textContent = flow.description;
+          info.appendChild(description);
+        }
+        
+        // Add metadata (steps count, last update)
+        const meta = document.createElement('div');
+        meta.className = 'flow-meta';
+        
+        const steps = document.createElement('div');
+        steps.className = 'flow-steps';
+        
+        // Add a step icon
+        const stepIcon = document.createElement('span');
+        stepIcon.className = 'step-icon';
+        stepIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        `;
+        steps.appendChild(stepIcon);
+        
+        const stepsText = document.createElement('span');
+        stepsText.textContent = `${flow.steps ? flow.steps.length : 0} צעדים`;
+        steps.appendChild(stepsText);
+        
+        meta.appendChild(steps);
+        
+        if (flow.updatedAt) {
+          const updated = document.createElement('div');
+          updated.textContent = `עודכן: ${new Date(flow.updatedAt).toLocaleDateString('he-IL')}`;
+          meta.appendChild(updated);
+        }
+        
+        info.appendChild(meta);
+        card.appendChild(info);
+        
+        return card;
+      }
+      
+      function createErrorFlowCard(flow) {
+        // Create a simpler card for flows that failed to load details
+        const card = document.createElement('div');
+        card.className = 'flow-card';
+        
+        // Create thumbnail section with placeholder
+        const thumbnail = document.createElement('div');
+        thumbnail.className = 'flow-thumbnail';
+        thumbnail.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        `;
+        card.appendChild(thumbnail);
+        
+        // Create info section
+        const info = document.createElement('div');
+        info.className = 'flow-info';
+        
+        const name = document.createElement('div');
+        name.className = 'flow-name';
+        name.textContent = flow.name || 'תהליך ללא שם';
+        info.appendChild(name);
+        
+        const description = document.createElement('div');
+        description.className = 'flow-description';
+        description.textContent = 'לא ניתן לטעון פרטי תהליך';
+        description.style.color = '#B91C1C';
+        info.appendChild(description);
+        
+        card.appendChild(info);
+        
+        return card;
+      }
+    });
+  </script>
 </body>
 </html>
