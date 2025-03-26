@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ניהול תהליכי משתמש</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/rtl.css">
+</head>
+<body>
+  <div class="admin-container">
+    <header>
+      <h1>ניהול תהליכי משתמש</h1>
+      <div class="header-actions">
+        <button id="create-flow-btn">צור תהליך חדש</button>
+        <select id="flow-select">
+          <option value="">-- בחר תהליך לעריכה --</option>
+        </select>
+      </div>
+    </header>
+    <div class="logo-settings">
+        <h2>הגדרות לוגו</h2>
+        <form id="logo-form" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="logo-upload">העלאת לוגו:</label>
+            <input type="file" id="logo-upload" accept="image/*">
+            <div class="logo-preview" id="logo-preview"></div>
+          </div>
+          <button type="submit" id="save-logo-btn">שמור לוגו</button>
+        </form>
+      </div>
+    <div class="admin-panel">
+      <div class="flow-edit-section">
+        <h2>פרטי תהליך</h2>
+        <form id="flow-details-form">
+          <div class="form-group">
+            <label for="flow-name">שם התהליך:</label>
+            <input type="text" id="flow-name" required>
+          </div>
+          <div class="form-group">
+            <label for="flow-description">תיאור:</label>
+            <textarea id="flow-description"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="save-flow-btn">שמור שינויים</button>
+            <button type="button" id="delete-flow-btn" class="danger">מחק תהליך</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="steps-section">
+        <h2>צעדים בתהליך</h2>
+        <div class="steps-container" id="steps-container">
+          <p class="empty-steps-message">אין צעדים בתהליך זה. הוסף צעד חדש להתחלה.</p>
+        </div>
+        <button id="add-step-btn">הוסף צעד</button>
+      </div>
+
+      <div class="preview-section">
+        <h2>תצוגה מקדימה</h2>
+        <div class="view-toggle">
+          <button id="preview-desktop-view" class="active">מחשב</button>
+          <button id="preview-mobile-view">מובייל</button>
+        </div>
+        <div class="preview-container desktop-mode" id="preview-container"></div>
+      </div>
+    </div>
+
+    <div class="back-link">
+      <a href="/">חזרה למציג התהליכים</a>
+    </div>
+  </div>
+
+  <!-- Modal for step editing -->
+  <div class="modal" id="step-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>עריכת צעד</h2>
+      <form id="step-form">
+        <div class="form-group">
+          <label for="step-title">כותרת:</label>
+          <input type="text" id="step-title" required>
+        </div>
+        <div class="form-group">
+          <label for="step-description">תיאור:</label>
+          <textarea id="step-description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="desktop-image">תמונה למחשב:</label>
+          <div class="image-upload">
+            <input type="file" id="desktop-image" accept="image/*">
+            <div class="image-preview" id="desktop-image-preview"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mobile-image">תמונה למובייל:</label>
+          <div class="image-upload">
+            <input type="file" id="mobile-image" accept="image/*">
+            <div class="image-preview" id="mobile-image-preview"></div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit">שמור צעד</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/sortable.min.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

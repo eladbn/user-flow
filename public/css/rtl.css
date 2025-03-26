@@ -1,0 +1,46 @@
+/* RTL specific adjustments */
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  }
+  
+  .flow-step::after {
+    right: auto;
+    left: -15px;
+  }
+  
+  .step-item {
+    flex-direction: row-reverse;
+  }
+  
+  .desktop-mode {
+    direction: ltr; /* Keep the flow itself LTR for correct display */
+  }
+  
+  .desktop-mode .flow-step {
+    direction: rtl; /* Keep the content RTL */
+  }
+  
+  .desktop-mode .flow-step::after {
+    right: -15px;
+    left: auto;
+  }
+  
+  .form-actions {
+    flex-direction: row-reverse;
+  }
+  
+  .modal-content .close-modal {
+    right: auto;
+    left: 15px;
+  }
+  
+  /* Fix any other RTL-specific issues */
+  .navigation button:first-child {
+    margin-left: 0;
+    margin-right: auto;
+  }
+  
+  .navigation button:last-child {
+    margin-right: 0;
+    margin-left: auto;
+  }

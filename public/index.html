@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מציג תהליכים משתמש</title>
+  <link rel="stylesheet" href="css/modern-ui.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Right sidebar with controls -->
+    <div class="sidebar">
+      <div class="logo-container">
+        <div class="app-logo" id="app-logo">
+          <!-- Will contain logo image - either from admin menu or default -->
+        </div>
+        <h1 class="app-title">מציג תהליכים</h1>
+      </div>
+      
+      <div class="flow-control">
+        <label for="flow-select">בחר תהליך:</label>
+        <select id="flow-select" class="flow-select">
+          <option value="">-- בחר תהליך --</option>
+        </select>
+      </div>
+      
+      <div class="view-toggle">
+        <button id="desktop-view" class="toggle-btn active">מחשב</button>
+        <button id="mobile-view" class="toggle-btn">מובייל</button>
+      </div>
+      
+      <div class="steps-list-container">
+        <h2 class="steps-title">צעדי התהליך</h2>
+        <div id="steps-list" class="steps-list">
+          <div class="placeholder-message">בחר תהליך להצגה</div>
+        </div>
+      </div>
+      
+      <div class="navigation">
+        <button id="prev-btn" class="nav-btn" disabled>הקודם</button>
+        <span id="step-indicator" class="step-indicator"></span>
+        <button id="next-btn" class="nav-btn" disabled>הבא</button>
+      </div>
+      
+      <div class="admin-link">
+        <a href="/admin.html" class="admin-btn">כניסה לפאנל ניהול</a>
+      </div>
+    </div>
+    
+    <!-- Main content area for image display -->
+    <div class="content-area">
+      <div id="content-display" class="content-display">
+        <div class="placeholder-message">בחר תהליך וצעד להצגה</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/viewer.js"></script>
+</body>
+</html>

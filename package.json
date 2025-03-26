@@ -1,0 +1,23 @@
+{
+  "name": "user-flow-app",
+  "version": "1.0.0",
+  "description": "Hebrew RTL User Flow App with Admin Interface",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.21.2",
+    "fs-extra": "^11.1.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "private": true
+}
