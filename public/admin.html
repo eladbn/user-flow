@@ -4,110 +4,199 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ניהול תהליכי משתמש</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/admin.css">
-  <link rel="stylesheet" href="css/rtl.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/modern-admin.css">
 </head>
 <body>
-  <div class="admin-container">
-    <header>
-      <h1>ניהול תהליכי משתמש</h1>
-      <div class="header-actions">
-        <button id="create-flow-btn">צור תהליך חדש</button>
-        <select id="flow-select">
-          <option value="">-- בחר תהליך לעריכה --</option>
-        </select>
-      </div>
-    </header>
-    <div class="logo-settings">
-        <h2>הגדרות לוגו</h2>
-        <form id="logo-form" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="logo-upload">העלאת לוגו:</label>
-            <input type="file" id="logo-upload" accept="image/*">
-            <div class="logo-preview" id="logo-preview"></div>
-          </div>
-          <button type="submit" id="save-logo-btn">שמור לוגו</button>
-        </form>
-      </div>
-    <div class="admin-panel">
-      <div class="flow-edit-section">
-        <h2>פרטי תהליך</h2>
-        <form id="flow-details-form">
-          <div class="form-group">
-            <label for="flow-name">שם התהליך:</label>
-            <input type="text" id="flow-name" required>
-          </div>
-          <div class="form-group">
-            <label for="flow-description">תיאור:</label>
-            <textarea id="flow-description"></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" id="save-flow-btn">שמור שינויים</button>
-            <button type="button" id="delete-flow-btn" class="danger">מחק תהליך</button>
-          </div>
-        </form>
-      </div>
-
-      <div class="steps-section">
-        <h2>צעדים בתהליך</h2>
-        <div class="steps-container" id="steps-container">
-          <p class="empty-steps-message">אין צעדים בתהליך זה. הוסף צעד חדש להתחלה.</p>
+  <div class="admin-wrapper">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h1>לוח ניהול</h1>
+        <div class="logo-container">
+          <img src="" alt="לוגו" class="logo" id="header-logo">
         </div>
-        <button id="add-step-btn">הוסף צעד</button>
       </div>
+      <ul class="nav-menu">
+        <li class="active">
+          <a href="#flows">
+            <i class="ri-flow-chart"></i>
+            <span>תהליכים</span>
+          </a>
+        </li>
+        <li>
+          <a href="#settings">
+            <i class="ri-settings-3-line"></i>
+            <span>הגדרות</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-      <div class="preview-section">
-        <h2>תצוגה מקדימה</h2>
-        <div class="view-toggle">
-          <button id="preview-desktop-view" class="active">מחשב</button>
-          <button id="preview-mobile-view">מובייל</button>
+    <main class="main-content">
+      <header class="content-header">
+        <div class="header-title">
+          <h2>ניהול תהליכי משתמש</h2>
         </div>
-        <div class="preview-container desktop-mode" id="preview-container"></div>
-      </div>
-    </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="create-flow-btn">
+            <i class="ri-add-line"></i>
+            צור תהליך חדש
+          </button>
+          <select id="flow-select" class="form-select">
+            <option value="">בחר תהליך לעריכה</option>
+          </select>
+        </div>
+      </header>
 
-    <div class="back-link">
-      <a href="/">חזרה למציג התהליכים</a>
-    </div>
+      <div class="admin-grid" id="flows">
+        <section class="card flow-details">
+          <div class="card-header">
+            <h3>פרטי תהליך</h3>
+          </div>
+          <div class="card-body">
+            <form id="flow-details-form">
+              <div class="form-group">
+                <label for="flow-name">שם התהליך</label>
+                <input type="text" id="flow-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="flow-description">תיאור</label>
+                <textarea id="flow-description" class="form-control"></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">שמור שינויים</button>
+                <button type="button" id="delete-flow-btn" class="btn btn-danger">מחק תהליך</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="card steps-management">
+          <div class="card-header">
+            <h3>צעדים בתהליך</h3>
+          </div>
+          <div class="card-body">
+            <div class="steps-container" id="steps-container">
+              <p class="empty-steps-message">אין צעדים בתהליך זה. הוסף צעד חדש להתחלה.</p>
+            </div>
+            <button id="add-step-btn" class="btn btn-outline-primary w-100">
+              <i class="ri-add-line"></i>
+              הוסף צעד
+            </button>
+          </div>
+        </section>
+
+        <section class="card preview-section">
+          <div class="card-header">
+            <h3>תצוגה מקדימה</h3>
+          </div>
+          <div class="card-body">
+            <div class="view-toggle">
+              <button id="preview-desktop-view" class="btn btn-toggle active">
+                <i class="ri-computer-line"></i>
+                מחשב
+              </button>
+              <button id="preview-mobile-view" class="btn btn-toggle">
+                <i class="ri-smartphone-line"></i>
+                מובייל
+              </button>
+            </div>
+            <div class="preview-container desktop-mode" id="preview-container"></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="logo-settings card" id="settings">
+        <div class="card-header">
+          <h3>הגדרות לוגו</h3>
+        </div>
+        <div class="card-body">
+          <form id="logo-form" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="logo-upload">העלאת לוגו</label>
+              <div class="file-upload" tabindex="0" role="button" aria-label="העלאת לוגו">
+                <input type="file" id="logo-upload" accept="image/*" class="file-input">
+                <div class="file-upload-placeholder">
+                  <i class="ri-upload-cloud-2-line"></i>
+                  <span>גרור והנח או לחץ לבחירת קובץ</span>
+                </div>
+              </div>
+              <div class="logo-preview" id="logo-preview"></div>
+            </div>
+            <button type="submit" id="save-logo-btn" class="btn btn-primary">שמור לוגו</button>
+          </form>
+        </div>
+      </div>
+    </main>
   </div>
 
-  <!-- Modal for step editing -->
+  <!-- Modal for step editing (to be styled similarly) -->
   <div class="modal" id="step-modal">
-    <div class="modal-content">
-      <span class="close-modal">&times;</span>
-      <h2>עריכת צעד</h2>
-      <form id="step-form">
-        <div class="form-group">
-          <label for="step-title">כותרת:</label>
-          <input type="text" id="step-title" required>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>עריכת צעד</h2>
+          <button type="button" class="close-modal">&times;</button>
         </div>
-        <div class="form-group">
-          <label for="step-description">תיאור:</label>
-          <textarea id="step-description"></textarea>
+        <div class="modal-body">
+          <form id="step-form">
+            <div class="form-group">
+              <label for="step-title">כותרת</label>
+              <input type="text" id="step-title" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="step-description">תיאור</label>
+              <textarea id="step-description" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="desktop-image">תמונה למחשב</label>
+              <div class="file-upload" tabindex="0" role="button" aria-label="העלאת תמונה למחשב">
+                <input type="file" id="desktop-image" accept="image/*" class="file-input">
+                <div class="file-upload-placeholder">
+                  <i class="ri-upload-cloud-2-line"></i>
+                  <span>גרור והנח או לחץ לבחירת קובץ</span>
+                </div>
+              </div>
+              <div class="image-preview" id="desktop-image-preview"></div>
+            </div>
+            <div class="form-group">
+              <label for="mobile-image">תמונה למובייל</label>
+              <div class="file-upload" tabindex="0" role="button" aria-label="העלאת תמונה למובייל">
+                <input type="file" id="mobile-image" accept="image/*" class="file-input">
+                <div class="file-upload-placeholder">
+                  <i class="ri-upload-cloud-2-line"></i>
+                  <span>גרור והנח או לחץ לבחירת קובץ</span>
+                </div>
+              </div>
+              <div class="image-preview" id="mobile-image-preview"></div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">שמור צעד</button>
+            </div>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="desktop-image">תמונה למחשב:</label>
-          <div class="image-upload">
-            <input type="file" id="desktop-image" accept="image/*">
-            <div class="image-preview" id="desktop-image-preview"></div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="mobile-image">תמונה למובייל:</label>
-          <div class="image-upload">
-            <input type="file" id="mobile-image" accept="image/*">
-            <div class="image-preview" id="mobile-image-preview"></div>
-          </div>
-        </div>
-        <div class="form-actions">
-          <button type="submit">שמור צעד</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 
   <script src="js/sortable.min.js"></script>
   <script src="js/admin.js"></script>
+  <script src="js/file-upload-handler.js"></script>
+  
+  <!-- Custom script to load the logo without interfering with authentication -->
+  <script>
+    localStorage.removeItem('adminAuthenticated');
+    // This runs after all other scripts have loaded
+    window.addEventListener('load', function() {
+      // Only attempt to load logo if already authenticated
+      if (localStorage.getItem('adminAuthenticated')) {
+        const logoElem = document.getElementById('header-logo');
+        const savedLogo = localStorage.getItem('appLogo');
+        if (savedLogo && logoElem) {
+          logoElem.src = savedLogo;
+        }
+      }
+    });
+  </script>
 </body>
 </html>

@@ -45,12 +45,33 @@ document.addEventListener('DOMContentLoaded', function() {
             logoImg.alt = 'לוגו האפליקציה';
             appLogo.innerHTML = '';
             appLogo.appendChild(logoImg);
+            console.log('Logo loaded successfully:', data.logoPath);
+          } else {
+            // Try to load the logo from localStorage as a fallback
+            const savedLogo = localStorage.getItem('appLogo');
+            if (savedLogo) {
+              const logoImg = document.createElement('img');
+              logoImg.src = savedLogo;
+              logoImg.alt = 'לוגו האפליקציה';
+              appLogo.innerHTML = '';
+              appLogo.appendChild(logoImg);
+              console.log('Logo loaded from localStorage');
+            }
           }
           // If no logo data, the default CSS logo will show
         })
         .catch(error => {
-          console.log('Using default logo');
-          // Default logo will show via CSS
+          console.log('Using default logo, error:', error);
+          // Try to load from localStorage as a fallback
+          const savedLogo = localStorage.getItem('appLogo');
+          if (savedLogo) {
+            const logoImg = document.createElement('img');
+            logoImg.src = savedLogo;
+            logoImg.alt = 'לוגו האפליקציה';
+            appLogo.innerHTML = '';
+            appLogo.appendChild(logoImg);
+            console.log('Logo loaded from localStorage after API error');
+          }
         });
     }
     
