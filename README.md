@@ -40,6 +40,17 @@ This web application is designed to create and display interactive, step-by-step
 ├── package.json
 └── server.js
 ```
+## How to Install
+
+ - git clone https://www.github.com/eladbn/user-flow.git
+
+ - cd user-flow
+
+ - npm init
+
+ - npm install express
+
+ - node .\server.js
 
 ## How to Use
 
